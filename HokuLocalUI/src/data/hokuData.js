@@ -2,37 +2,37 @@ export const liveTickers = [
     {
         'title': 'ES',
         'label': 'E-Mini S&P 500 Futures',
-        'commission': 2.50,
-        'units': 20,
+        'commission': 4.50,
+        'units': 50,
         'shortLabel': 'S&P 500',
-        'price': 20000,
-        'margin': 1200
+        'price': 250000,
+        'margin': 1400
     },
     {
         'title': 'YM',
         'label': 'E-Mini DJI Futures',
-        'commission': 2.50,
-        'units': 15,
+        'commission': 4.50,
+        'units': 5,
         'shortLabel': 'DOW JONES',
-        'price': 34000,
-        'margin': 1500
+        'price': 195000,
+        'margin': 11000
     },
     {
         'title': 'ZC',
         'label': 'CORN Futures',
-        'commission': 2.50,
-        'units': 5000,
+        'commission': 5.94,
+        'units': 50,
         'shortLabel': 'Bushels',
-        'price': 200000,
-        'margin': 1600
+        'price': 20000,
+        'margin': 2000
     },
     {
         'title': 'ZN',
         'label': 'T-Bills Futures',
-        'commission': 2.50,
+        'commission': 3.34,
         'units': 20,
         'shortLabel': 'S&P 500',
-        'price': 120,
-        'margin': 1100
+        'price': 109700,
+        'margin': 1000
     }
 ];

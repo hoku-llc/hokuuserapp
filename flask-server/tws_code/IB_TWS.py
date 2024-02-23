@@ -28,6 +28,7 @@ class TWSapp(EClient, EWrapper):
         self.last_quote = 0.0
         self.margin = 0.0
         self.cont_list = []
+        self.trade_success = False
 
     def nextValidId(self, orderId: int):
         """
@@ -42,9 +43,12 @@ class TWSapp(EClient, EWrapper):
         elif self.command == 'CLOSE':
             self.placeOrder(orderId, self.params['contract'], self.params['order'])
         elif self.command == 'ORDER':
-            bracket = self.BracketOrder(parentOrderId=orderId, stopLossPercent=0.02, parentOrder=self.params['order'])
-            for o in bracket:
-                self.placeOrder(o.orderId, self.params['contract'], o)
+            print('making order')
+            self.placeOrder(orderId, self.params['contract'], self.params['order'])
+            # bracket = self.BracketOrder(parentOrderId=orderId, stopLossPercent=0.02, parentOrder=self.params['order'])
+            # for o in bracket:
+            #     print(':0', o)
+            #     self.placeOrder(o.orderId, self.params['contract'], o)
         elif self.command == 'POSITION':
             self.reqPositions()
         elif self.command == 'FUNDS':
@@ -81,6 +85,7 @@ class TWSapp(EClient, EWrapper):
         """
         print(f'openOrder orderID: {orderId}, contract: {contract}, order: {order}')
         self.margin = float(orderState.initMarginChange)
+        self.trade_success = True
         self.disconnect()
 
     def accountSummary(self, reqId: int, account: str, tag: str, value: str,
@@ -135,19 +140,24 @@ class TWSapp(EClient, EWrapper):
         self.positions = {}
         self.availableFunds = 0
         self.last_quote = 0
+        self.trade_success = False
 
     def BracketOrder(self, parentOrderId: int, stopLossPercent: float, parentOrder: Order):
+        stoplossPrice = parentOrder.lmtPrice * (
+            (1 - stopLossPercent) if parentOrder.action == "BUY" else (1 + stopLossPercent))
+        stoplossPrice = round(stoplossPrice, 2)
+        print('loss price', stoplossPrice)
         parentOrder.orderId = parentOrderId
         parentOrder.transmit = False
         stopLoss = Order()
-        stopLoss.orderId = (parentOrderId + 1) * 100
+        stopLoss.orderId = (parentOrderId + 1) 
         stopLoss.action = "SELL" if parentOrder.action == "BUY" else "BUY"
         stopLoss.orderType = "STP"
-        stopLoss.auxPrice = parentOrder.lmtPrice * (
-            (1 - stopLossPercent) if parentOrder.action == "BUY" else (1 + stopLossPercent))
+        stopLoss.auxPrice = 107.625
         stopLoss.totalQuantity = parentOrder.totalQuantity
         stopLoss.parentId = parentOrderId
         stopLoss.eTradeOnly = ''
         stopLoss.firmQuoteOnly = ''
         stopLoss.transmit = True
+        print('stoploss', stopLoss.auxPrice)
         return [parentOrder, stopLoss]

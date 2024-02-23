@@ -19,20 +19,23 @@ const LiveTrader = ({ apiKey, chosenTicks }) => {
   useEffect(() => {
     const apiUrl = "https://cattle-unified-inherently.ngrok-free.app/receive_json";
     const ws = new WebSocket("ws://9.tcp.ngrok.io:24047");
-    ws.onerror = (event) => {
-      console.log("error", event);
-    }
+    // ws.onerror = (event) => {
+    //   console.log("error", event);
+    // }
     ws.onmessage = (event) => {
       const receivedJson = JSON.parse(event.data);
-      console.log("realtime", receivedJson);
+      if (Object.keys(receivedJson).length !== 0) {
+        console.log("realtime", receivedJson);
 
-      setJsonData((prevData) => {
-        // Update state only if the data has changed
-        if (JSON.stringify(receivedJson) !== JSON.stringify(prevData)) {
-          return receivedJson;
-        }
-        return prevData;
-      });
+        setJsonData((prevData) => {
+          // Update state only if the data has changed
+          if (JSON.stringify(receivedJson) !== JSON.stringify(prevData)) {
+            return receivedJson;
+          }
+          return prevData;
+        });
+      } 
+      
     };
 
     const headers = {

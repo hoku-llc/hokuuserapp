@@ -56,21 +56,23 @@ class IBroker(object):
             order = self.create_limit_order(decision=position, quantity=contractQuantity, limitPrice=executeObject['quotePrice'], whatIf=False)
             order_params = {'contract': contract, 'order': order}
             print('order params', order_params)
-            # self.app.connect('127.0.0.1', 7497, 1000)
-            # self.app.command = 'ORDER'
-            # self.app.params = order_params
-            # self.app.run()
+            time.sleep(2)
+            self.app.connect('127.0.0.1', 7497, 1000)
+            self.app.command = 'ORDER'
+            self.app.params = order_params
+            self.app.run()
+            print('self', self.app.trade_success)
             self.inTrade = True
             self.tradingTicker = executeObject['ticker']
             self.buyTime = datetime.now()
             self.quotePrice = executeObject['quotePrice']
             print('BOUGHT STOCK')
         elif (executeObject['action'] =='SELL') and (self.inTrade):
-            open_positions = {'YM': 5, 'ES': 12, 'ZC': 2, 'ZN': 0}#self.get_open_positions()
+            # open_positions = {'YM': 5, 'ES': 12, 'ZC': 2, 'ZN': 0}#self.get_open_positions()
             time.sleep(1)
-            if (executeObject['ticker'] in open_positions) and (executeObject['ticker'] == self.tradingTicker):
+            if (executeObject['ticker'] == self.tradingTicker):
                 position = 'SELL' if executeObject['position'] == 'Long' else 'BUY' # SELL if in long, BUY if in short
-                order = self.create_limit_order(decision=position, quantity=abs(open_positions[executeObject['ticker']]), limitPrice=executeObject['quotePrice'], whatIf=False)
+                order = self.create_limit_order(decision=position, quantity=contractQuantity, limitPrice=executeObject['quotePrice'], whatIf=False)
                 order_params = {'contract': contract, 'order': order}
                 print('order params', order_params)
                 if executeObject['position'] == 'Long':
@@ -79,10 +81,11 @@ class IBroker(object):
                 else:
                     # Was a short order
                     profitVal = self.quotePrice - executeObject['quotePrice']
-                # self.app.connect('127.0.0.1', 7497, 1000)
-                # self.app.command = 'CLOSE'
-                # self.app.params = order_params
-                # self.app.run()
+                self.app.connect('127.0.0.1', 7497, 1000)
+                self.app.command = 'CLOSE'
+                self.app.params = order_params
+                self.app.run()
+                print('self', self.app.trade_success)
                 units_per_contract = next((item['units'] for item in liveTickerArray if item['title'] == executeObject['ticker']), None)
                 profitVal = profitVal*units_per_contract*contractQuantity
                 db = TinyDB(dbPath)
@@ -147,6 +150,31 @@ class IBroker(object):
         my_order.firmQuoteOnly = ''
         my_order.whatIf = whatIf
         return my_order
+    def set_contract(self, ticker: str, exchange: str, day: datetime):
+        """
+        parameters:
+            ticker: string representing ticker
+            day: datetime representing current day
+        Sets self.contract object to specified contract for the ticker and day
+        """
+        contract = Contract()
+        contract.symbol = ticker
+        contract.secType = "FUT"
+        contract.exchange = exchange
+        contract.currency = "USD"
+        contract.includeExpired = False
+        req_params = {'contract': contract}
+        self.app.connect('127.0.0.1', 7497, 1000)
+        self.app.command = 'REQ'
+        self.app.params = req_params
+        self.app.run()
+        cont_list = sorted(self.app.cont_list, key=lambda contract: contract.lastTradeDateOrContractMonth)
+        dt = datetime.strptime(cont_list[0].lastTradeDateOrContractMonth, '%Y%m%d')
+        contract_enddate = (dt - timedelta(days=7))
+        if day > contract_enddate:
+            self.contract = cont_list[1]
+        else:
+            self.contract = cont_list[0]
 
 def set_contract_from_web(contractParam: Contract):
     contract = Contract()
@@ -166,6 +194,28 @@ def set_contract_from_web(contractParam: Contract):
 
 if __name__ == '__main__':
     IB = IBroker()
-    IB.set_contract(ticker='MES', day=datetime(2023, 8, 3), exchange="CME")
+    IB.set_contract(ticker='ZN', day=datetime(2024, 2, 13), exchange="CBOT")
     print(IB.contract)
+    myContract = {
+        'symbol': IB.contract.symbol,
+        'secType': IB.contract.secType,
+        'lastTradeDateOrContractMonth': IB.contract.lastTradeDateOrContractMonth,
+        'multiplier': IB.contract.multiplier,
+        'exchange': IB.contract.exchange,
+        'currency': IB.contract.currency,
+        'localSymbol': IB.contract.localSymbol,
+        'tradingClass': IB.contract.tradingClass,
+        'includeExpired': IB.contract.includeExpired,
+    }
+    json_data = {
+        'ticker': 'ZN',
+        'position': 'Long',
+        'action': 'SELL',
+        'cDate': IB.contract.localSymbol,
+        'timestamp': datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%SZ"),
+        'ibContract': myContract,
+        'quotePrice': 109.625
+    }
+
+    IB.execute_liveTrader(executeObject=json_data, contractQuantity=1, dbPath='/home/hoku-analytics/GITROOT/hoku_userapp/hokuuserapp/flask-server/userData/mydb.json')
     # IB.init_dataframe(ticker='MES', end_day=datetime(2023, 7, 8), start_day=datetime(2023, 3, 8))

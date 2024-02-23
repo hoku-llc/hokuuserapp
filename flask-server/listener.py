@@ -4,6 +4,15 @@ import threading
 import requests
 import time
 from tws_code.IB_manager import set_contract_from_web, IBroker
+import signal
+class TimeoutException(Exception):
+    def __init__(self, *args, **kwargs):
+        pass
+
+def signal_handler(signum, frame):
+    raise TimeoutException()
+
+signal.signal(signal.SIGALRM, signal_handler)
 
 # WebSocket URL
 websocket_url = "ws://9.tcp.ngrok.io:24047"  # Has to match same as EXPRESS.JS
@@ -19,14 +28,21 @@ def run_trade_listener(apiKey: str, tickerConfig: map, dbPath: str):
     def on_message(ws, message):
         # this runs when there is a post request sent to the express websocket
         received_json = json.loads(message)
-        inner_dicts = list(received_json.values())
-        latest_entry = max(inner_dicts, key=lambda x: x['timestamp'])
-        print("Latest Entry:", latest_entry)
-        print(tickerConfig[latest_entry['ticker']])
-        print("ticker of entry", latest_entry['ticker'], tickerConfig[latest_entry['ticker']])
-        if latest_entry['ticker'] in tickerConfig and tickerConfig[latest_entry['ticker']] > 0:
-            print('in entry')
-            IB.execute_liveTrader(executeObject=latest_entry, contractQuantity=tickerConfig[latest_entry['ticker']], dbPath=dbPath)
+        if received_json:
+            inner_dicts = list(received_json.values())
+            latest_entry = max(inner_dicts, key=lambda x: x['timestamp'])
+            print("Latest Entry:", latest_entry)
+            print(tickerConfig[latest_entry['ticker']])
+            print("ticker of entry", latest_entry['ticker'], tickerConfig[latest_entry['ticker']])
+            if latest_entry['ticker'] in tickerConfig and tickerConfig[latest_entry['ticker']] > 0:
+                print('in entry')
+                try:
+                    signal.alarm(45)
+                    IB.execute_liveTrader(executeObject=latest_entry, contractQuantity=tickerConfig[latest_entry['ticker']], dbPath=dbPath)
+                    signal.alarm(0)
+                except:
+                    print('timeout error')
+
 
     def on_open(ws):
         print("WebSocket connection opened.")
