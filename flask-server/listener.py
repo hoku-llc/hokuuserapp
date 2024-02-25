@@ -12,7 +12,7 @@ class TimeoutException(Exception):
 def signal_handler(signum, frame):
     raise TimeoutException()
 
-signal.signal(signal.SIGALRM, signal_handler)
+signal.signal(signal.SIGABRT, signal_handler)
 
 # WebSocket URL
 websocket_url = "ws://9.tcp.ngrok.io:24047"  # Has to match same as EXPRESS.JS

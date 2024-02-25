@@ -12,7 +12,7 @@ class TimeoutException(Exception):
 def signal_handler(signum, frame):
     raise TimeoutException()
 
-signal.signal(signal.SIGALRM, signal_handler)
+signal.signal(signal.SIGABRT, signal_handler)
 
 def liveTickerRead():
     with open('../HokuLocalUI/src/data/hokuData.js', 'r') as file:
