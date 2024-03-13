@@ -1,5 +1,6 @@
 import json
 import websocket
+from datetime import datetime
 import threading
 import requests
 import time
@@ -15,9 +16,9 @@ def signal_handler(signum, frame):
 signal.signal(signal.SIGABRT, signal_handler)
 
 # WebSocket URL
-websocket_url = "ws://9.tcp.ngrok.io:24047"  # Has to match same as EXPRESS.JS
+# websocket_url = "ws://9.tcp.ngrok.io:24047"  # Has to match same as EXPRESS.JS
 # api_url = "http://localhost:3001/receive_json"
-# websocket_url = "ws://localhost:3001"  # Has to match same as EXPRESS.JS
+websocket_url = "ws://localhost:3001"  # Has to match same as EXPRESS.JS
 api_url = "https://cattle-unified-inherently.ngrok-free.app/receive_json"
 # Global flag to indicate whether to stop the WebSocket thread
 stop_websocket_thread = threading.Event()
@@ -53,7 +54,8 @@ def run_trade_listener(apiKey: str, tickerConfig: map, dbPath: str):
         # You can add any cleanup or error handling code here
 
     def on_error(ws, error):
-        print("WebSocket error:", error)
+        
+        print(datetime.now(), " WebSocket error:", error)
         time.sleep(5)  # Wait for 5 seconds before retrying (adjust as needed)
         ws.close()
         websocket_thread = threading.Thread(target=run_websocket)

@@ -81,11 +81,11 @@ const StartTrader = () => {
             marginBottom="5px"
           >
             <Typography
-              variant="h2"
+              variant="h1"
               fontWeight="bold"
               sx={{ color: colors.greenAccent[100], marginRight: "20px" }}
             >
-              Live Trading In Progress
+              Predicting Market Trends  
             </Typography>
             <BounceLoader color={colors.greenAccent[400]} />
           </Box>
