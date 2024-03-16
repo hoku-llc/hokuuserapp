@@ -34,7 +34,7 @@ const Navbar = () => {
             <a href="/">
               <Typography
                 variant="h4"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100] }}
               >
                 Start Trader
@@ -45,7 +45,7 @@ const Navbar = () => {
             <a href="/dashboard">
               <Typography
                 variant="h4"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100] }}
               >
                 Dashboard
@@ -56,7 +56,7 @@ const Navbar = () => {
             <a href="/config">
               <Typography
                 variant="h4"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100] }}
               >
                 Config File
@@ -64,10 +64,10 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href="/">
+            <a href="/help">
               <Typography
                 variant="h4"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100] }}
               >
                 Help

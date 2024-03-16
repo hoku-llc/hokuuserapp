@@ -25,7 +25,7 @@ const PrevSignal = ({ recJson }) => {
         >
           <Typography
             variant="h4"
-            fontWeight="bold"
+            fontWeight=""
             sx={{ color: colors.grey[100] }}
           >
             {displaySignal}

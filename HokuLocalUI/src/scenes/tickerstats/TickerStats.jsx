@@ -10,6 +10,7 @@ import PastTransactionsTable from "../../components/sharedDataComponents/PastTra
 import { useLocation } from "react-router-dom";
 import { liveTickers } from "../../data/hokuData";
 import { DotLoader } from "react-spinners";
+import Header from "../../components/Header";
 
 
 const TickerStats = () => {
@@ -70,7 +71,7 @@ const TickerStats = () => {
   return (
     <Box m="20px" padding=" 0 5%">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <h1> Ticker Statistics </h1>
+        <Header title={"Ticker Statistics"} subtitle={tickerContract.label}/>
       </Box>
       <Box
         display="grid"
@@ -80,10 +81,11 @@ const TickerStats = () => {
       >
         <Box
           gridColumn="span 4"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <TickerInfo
             ticker={currTicker}
@@ -97,10 +99,11 @@ const TickerStats = () => {
         </Box>
         <Box
           gridColumn="span 8"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <ProfitStatBox
             tickerTrans={tickerTrans}
@@ -111,30 +114,33 @@ const TickerStats = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <WinratePieChart transactionData={tickerTrans} />
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <WeeklyBarChart allTransactions={tickerTrans} />
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <PositionBarChart transactionData={tickerTrans} />
         </Box>

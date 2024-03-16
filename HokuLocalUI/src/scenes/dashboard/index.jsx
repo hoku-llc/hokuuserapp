@@ -10,6 +10,7 @@ import PastTransactionsTable from "../../components/sharedDataComponents/PastTra
 import { useNavigate } from "react-router-dom";
 import { DotLoader } from "react-spinners";
 import {liveTickers} from "../../data/hokuData";
+import Header from "../../components/Header";
 const liveTickerArray = [...liveTickers];
 const requiredLength = Math.ceil(liveTickerArray.length / 3) * 3;
 
@@ -80,7 +81,7 @@ const Dashboard = () => {
   return (
     <Box m="20px" padding="0 5%">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <h1> DASHBOARD</h1>
+        <Header title={"Dashboard"} subtitle={"Trade History"}/>
       </Box>
 
       {/* GRID VIEW*/}
@@ -96,7 +97,7 @@ const Dashboard = () => {
           <Box
           key={value}
             gridColumn="span 4"
-            backgroundColor={colors.primary[400]}
+            backgroundColor={"#2a5873"}
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -104,8 +105,9 @@ const Dashboard = () => {
             sx={{
               transition: "background-color 0.3s ease-in-out", // Add a transition for smooth effect
               "&:hover": {
-                backgroundColor: colors.primary[600], // Change background color on hover
+                backgroundColor: "#05223e", // Change background color on hover
               },
+              borderRadius: '10px'
             }}
           >
             <Statbox
@@ -124,30 +126,33 @@ const Dashboard = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <TickerPieChart tickerData={tickerPieData} />
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <WinratePieChart transactionData={allTransactionJson} />
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={"#2a5873"}
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{borderRadius: '10px'}}
         >
           <WeeklyBarChart allTransactions={allTransactionJson} />
         </Box>

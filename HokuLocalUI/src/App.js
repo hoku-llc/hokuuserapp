@@ -9,6 +9,8 @@ import ConfigFile from "./components/profileComponent/ConfigFile";
 import "./App.css";
 import StartTrader from "./scenes/startTrader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HelpPage from "./scenes/help";
+import GettingStarted from "./scenes/gettingStarted";
 const App = () => {
   const [theme, colorMode] = useMode();
   
@@ -25,6 +27,8 @@ const App = () => {
                 <Route path="/" element={<StartTrader />} />
                 <Route path="tickerstats/:buttonId" element={<TickerStats />} />
                 <Route path="/config" element={<ConfigFile />} />
+                <Route path="/help" element={<HelpPage />} />
+                <Route path="/gettingStarted" element={<GettingStarted />} />
               </Routes>
             </Router>
             </main>

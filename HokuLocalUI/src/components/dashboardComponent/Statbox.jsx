@@ -58,7 +58,7 @@ const Statbox = ({ title, subtitle, icon, allTrans }) => {
       <Box display="flex" justifyContent="center">
         <Typography
           variant="h3"
-          fontWeight="bold"
+          fontWeight=""
           sx={{ color: colors.greenAccent[100] }}
         >
           More Tickers Coming Soon
@@ -95,21 +95,21 @@ const Statbox = ({ title, subtitle, icon, allTrans }) => {
             <Box width="100px" textAlign="right">
               <Typography
                 variant="h5"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100] }}
               >
                 7 Days:
               </Typography>
               <Typography
                 variant="h5"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100], marginTop: "4px" }}
               >
                 30 Days:
               </Typography>
               <Typography
                 variant="h5"
-                fontWeight="bold"
+                fontWeight=""
                 sx={{ color: colors.grey[100], marginTop: "2px" }}
               >
                 Overall:

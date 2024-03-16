@@ -104,7 +104,7 @@ const ConfigFile = ({ configData }) => {
       confirmButtonColor: colors.greenAccent[400],
       cancelButtonColor: colors.redAccent[400],
       confirmButtonText: "Save",
-      background: colors.blueAccent[800],
+      background: "#0b3755",
     }).then((result) => {
       if (result.isConfirmed) {
         const jsonData = JSON.stringify(tickerData);
@@ -144,8 +144,8 @@ const ConfigFile = ({ configData }) => {
       alignItems="center"
     >
       <Typography
-        variant="h2"
-        fontWeight="bold"
+        variant="h1"
+        fontWeight=""
         sx={{ color: colors.grey[100], marginBottom: "10px" }}
       >
         Setup Config File
@@ -153,7 +153,7 @@ const ConfigFile = ({ configData }) => {
       <Typography
         variant="h5"
         fontWeight=""
-        sx={{ color: colors.redAccent[600] }}
+        sx={{ color: colors.redAccent[400] }}
       >
         Please input your Interactive Brokers Account Information and select
         stocks that you would like to trade
@@ -161,20 +161,20 @@ const ConfigFile = ({ configData }) => {
       <Typography
         variant="h5"
         fontWeight=""
-        sx={{ color: colors.redAccent[600] }}
+        sx={{ color: colors.redAccent[400] }}
       >
         All information in this file will be encrypted and stored locally
       </Typography>
       <Typography
         variant="h5"
         fontWeight=""
-        sx={{ color: colors.redAccent[600], marginBottom: "20px" }}
+        sx={{ color: colors.redAccent[400], marginBottom: "20px" }}
       >
         Config file must be setup before you can trade
       </Typography>
       <form onSubmit={handleSubmit}>
         {/* IBKR Data */}
-        <Box
+        {/* <Box
           m="5px 0px"
           p="10px 20px"
           sx={{ backgroundColor: colors.primary[300] }}
@@ -247,17 +247,17 @@ const ConfigFile = ({ configData }) => {
               </Box>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         {/* APIKEY Data */}
         <Box
           m="5px 0px"
           p="10px 20px"
-          sx={{ backgroundColor: colors.primary[400] }}
+          sx={{ backgroundColor: "#2a5873", borderRadius: '10px' }}
         >
           <Box display="flex" justifyContent="center" alignContent="center">
             <Typography
               variant="h3"
-              fontWeight="bold"
+              fontWeight=""
               sx={{ color: colors.greenAccent[600] }}
             >
               HOKU API KEY
@@ -311,7 +311,7 @@ const ConfigFile = ({ configData }) => {
               p="20px"
               alignItems="center"
               justifyContent="space-between"
-              sx={{ backgroundColor: colors.primary[400] }}
+              sx={{ backgroundColor: "#2a5873", borderRadius: '10px' }}
             >
               <input
                 type="checkbox"
@@ -374,7 +374,7 @@ const ConfigFile = ({ configData }) => {
               >
                 <Typography
                   variant="h4"
-                  fontWeight="bold"
+                  fontWeight=""
                   sx={{ color: colors.greenAccent[600] }}
                 >
                   Price
@@ -395,7 +395,7 @@ const ConfigFile = ({ configData }) => {
               >
                 <Typography
                   variant="h4"
-                  fontWeight="bold"
+                  fontWeight=""
                   sx={{ color: colors.greenAccent[600] }}
                 >
                   Margin

@@ -41,7 +41,7 @@ const Recommender = ({ ticker, label, stocktype, recJson }) => {
     recJson && Object.keys(recJson).length === 0 ? (
       <Typography
         variant="h4"
-        fontWeight="bold"
+        fontWeight=""
         sx={{ color: colors.grey[300] }}
       >
         NOT IN TRADE
@@ -49,7 +49,7 @@ const Recommender = ({ ticker, label, stocktype, recJson }) => {
     ) : recJson && recJson["action"] === "SELL" ? (
       <Typography
         variant="h4"
-        fontWeight="bold"
+        fontWeight=""
         sx={{ color: colors.grey[300] }}
       >
         NOT IN TRADE
@@ -57,7 +57,7 @@ const Recommender = ({ ticker, label, stocktype, recJson }) => {
     ) : recJson && recJson["action"] === "BUY" ? (
       <Typography
         variant="h3"
-        fontWeight="bold"
+        fontWeight=""
         sx={{ color: colors.greenAccent[300] }}
       >
         IN TRADE
@@ -122,7 +122,7 @@ const Recommender = ({ ticker, label, stocktype, recJson }) => {
             {icon_func}
             <Typography
               variant="h3"
-              fontWeight="bold"
+              fontWeight=""
               sx={{ color: colors.grey[100] }}
             >
               {ticker}

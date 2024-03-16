@@ -86,7 +86,7 @@ const PastTransactionsTable = ({ data }) => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[800],
+            backgroundColor: "#072c48",
             borderBottom: "none",
             fontSize: "16px",
             fontWeight: "",
@@ -106,7 +106,9 @@ const PastTransactionsTable = ({ data }) => {
           },
         }}
       >
-        <DataGrid rows={data} columns={columns} />
+        <DataGrid rows={data} columns={columns} sortModel={[
+            { field: "timestamp", sort: "desc" },
+          ]}/>
       </Box>
     </Box>
   );

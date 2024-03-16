@@ -141,8 +141,10 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: colors.primary[500],
+              default: "#0f405e",
+              
             },
+            
           }
         : {
             // palette values for light mode
@@ -163,30 +165,30 @@ export const themeSettings = (mode) => {
           }),
     },
     typography: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+      fontFamily: ["Bitter", "sans-serif"].join(","),
       fontSize: 12,
       h1: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        // fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 40,
       },
       h2: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        // fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        // fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 24,
       },
       h4: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        // fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 20,
       },
       h5: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        // fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 16,
       },
       h6: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        // fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 14,
       },
     },

@@ -62,7 +62,7 @@ const ProfitStatBox = ({ tickerTrans, contractPrice }) => {
             fontWeight="bold"
             sx={{ color: colors.grey[100] }}
           >
-            Total Profit
+            Raw Profit
           </Typography>
           <Box display="flex" justifyContent="flex-end">
             <Typography

@@ -30,7 +30,7 @@ const StartTrader = () => {
           setTickers(data.tickerJson);
           setApiKey(data.apiKey)
         } else {
-          navigate("/config");
+          navigate("/help");
         }
       }).then(() => setLoading(false));
     fetch("/checkLive")
@@ -65,168 +65,170 @@ const StartTrader = () => {
   }
 
   return (
-    <Box m="20px">
-      <Header title="Start Live Trader" subtitle="Live Trader using IBKR" />
-      {inLive ? (
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            marginBottom="5px"
-          >
-            <Typography
-              variant="h1"
-              fontWeight="bold"
-              sx={{ color: colors.greenAccent[100], marginRight: "20px" }}
-            >
-              Predicting Market Trends  
-            </Typography>
-            <BounceLoader color={colors.greenAccent[400]} />
-          </Box>
-          <Box display="flex" flexDirection="column" marginBottom="20px" textAlign="center">
-            <Typography
-              variant="h4"
-              fontWeight="bold"
-              sx={{ color: colors.redAccent[600] }}
-            >
-              Please do not exit from this page!!
-            </Typography>
-            <Typography
-              variant="h5"
-              fontWeight=""
-              sx={{ color: colors.redAccent[200] }}
-            >
-              Keep Connection Secure (if lost refresh the page)
-            </Typography>
-            <Typography
-              variant="h5"
-              fontWeight=""
-              sx={{ color: colors.redAccent[200] }}
-            >
-              Before stopping trade ensure that there are no unattended open orders!
-            </Typography>
-          </Box>
-          <IconButton display="flex" onClick={handleStop}>
-            <Typography
-              variant="h1"
-              fontWeight="bold"
-              sx={{ color: colors.redAccent[400], marginRight: "20px" }}
-            >
-              Stop Trading
-            </Typography>
-            <StopCircleRoundedIcon
-              sx={{ color: colors.redAccent[400], fontSize: "60px" }}
-            />
-          </IconButton>
-          {loading ? <></> : <LiveTrader apiKey={apiKey} chosenTicks={tickers}/>}
-        </Box> 
-      ) : (
-        <Box
-          display="flex"
-          justifyContent="center"
-          flexDirection="column"
-          alignItems="center"
-          maxWidth="500px"
-          mx="auto" // Set left and right margin to auto
-        >
+    <Box>
+      <Box m="20px" p="0 5%">
+        <Header title="Start Live Trader" subtitle="Live Trader using IBKR" />
+        {inLive ? (
           <Box
             display="flex"
             flexDirection="column"
+            alignItems="center"
             justifyContent="center"
-            p="10px"
-            sx={{ backgroundColor: colors.primary[500] }}
           >
             <Box
               display="flex"
-              justifyContent="center"
               alignItems="center"
-              marginBottom="10px"
+              justifyContent="center"
+              marginBottom="5px"
             >
               <Typography
-                variant="h2"
-                fontWeight="bold"
-                sx={{ color: colors.greenAccent[100] }}
+                variant="h1"
+                fontWeight=""
+                sx={{ color: colors.greenAccent[100], marginRight: "20px" }}
               >
-                Tickers to Trade
+                Predicting Market Trends
               </Typography>
-              <a href="/config">
-                <IconButton>
-                  <ModeEditRoundedIcon
-                    sx={{ color: colors.grey[200], fontSize: "20px" }}
-                  />
-                </IconButton>
-              </a>
+              <BounceLoader color={colors.greenAccent[400]} />
             </Box>
-            {Object.entries(tickers).map(([ticker, value]) => (
+            <Box display="flex" flexDirection="column" marginBottom="20px" textAlign="center">
+              <Typography
+                variant="h4"
+                fontWeight="bold"
+                sx={{ color: colors.redAccent[500] }}
+              >
+                Please do not exit from this page!!
+              </Typography>
+              <Typography
+                variant="h5"
+                fontWeight=""
+                sx={{ color: colors.redAccent[200] }}
+              >
+                Keep Connection Secure (if lost refresh the page)
+              </Typography>
+              <Typography
+                variant="h5"
+                fontWeight=""
+                sx={{ color: colors.redAccent[200] }}
+              >
+                Before stopping trade ensure that there are no unattended open orders!
+              </Typography>
+            </Box>
+            <IconButton display="flex" onClick={handleStop}>
+              <Typography
+                variant="h1"
+                fontWeight=""
+                sx={{ color: colors.redAccent[400], marginRight: "20px" }}
+              >
+                Stop Trading
+              </Typography>
+              <StopCircleRoundedIcon
+                sx={{ color: colors.redAccent[400], fontSize: "60px" }}
+              />
+            </IconButton>
+            {loading ? <></> : <LiveTrader apiKey={apiKey} chosenTicks={tickers}/>}
+          </Box>
+        ) : (
+          <Box
+            display="flex"
+            justifyContent="center"
+            flexDirection="column"
+            alignItems="center"
+            maxWidth="500px"
+            mx="auto" // Set left and right margin to auto
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              p="10px"
+              sx={{ backgroundColor: "#0a3553", borderRadius: '10px' }}
+            >
               <Box
                 display="flex"
+                justifyContent="center"
                 alignItems="center"
-                justifyContent="space-between"
-                p="25px 50px"
-                m="2px"
-                key={ticker}
-                sx={{ backgroundColor: colors.primary[400] }}
+                marginBottom="10px"
               >
-                <Box>
-                  <Typography
-                    variant="h3"
-                    fontWeight="bold"
-                    sx={{ color: colors.greenAccent[500] }}
-                  >
-                    {ticker}
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    fontWeight=""
-                    sx={{ color: colors.greenAccent[200] }}
-                  >
-                    {getLabelByTitle(ticker)}
-                  </Typography>
-                </Box>
+                <Typography
+                  variant="h2"
+                  fontWeight=""
+                  sx={{ color: colors.greenAccent[100] }}
+                >
+                  Tickers to Trade
+                </Typography>
+                <a href="/config">
+                  <IconButton>
+                    <ModeEditRoundedIcon
+                      sx={{ color: colors.grey[200], fontSize: "20px" }}
+                    />
+                  </IconButton>
+                </a>
+              </Box>
+              {Object.entries(tickers).map(([ticker, value]) => (
                 <Box
                   display="flex"
-                  flexDirection="column"
-                  alignContent="end"
-                  sx={{ marginLeft: "20px" }}
+                  alignItems="center"
+                  justifyContent="space-between"
+                  p="25px 50px"
+                  m="2px"
+                  key={ticker}
+                  sx={{ backgroundColor: "#2a5873", borderRadius: '10px' }}
                 >
-                  <Typography
-                    variant="h4"
-                    fontWeight="bold"
-                    sx={{ color: colors.greenAccent[200] }}
+                  <Box>
+                    <Typography
+                      variant="h3"
+                      fontWeight=""
+                      sx={{ color: colors.greenAccent[500] }}
+                    >
+                      {ticker}
+                    </Typography>
+                    <Typography
+                      variant="h5"
+                      fontWeight=""
+                      sx={{ color: colors.greenAccent[200] }}
+                    >
+                      {getLabelByTitle(ticker)}
+                    </Typography>
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignContent="end"
+                    sx={{ marginLeft: "20px" }}
                   >
-                    # of Contracts:
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    fontWeight=""
-                    sx={{ color: colors.greenAccent[500], ml: "auto" }}
-                  >
-                    {value}
-                  </Typography>
+                    <Typography
+                      variant="h4"
+                      fontWeight=""
+                      sx={{ color: colors.greenAccent[200] }}
+                    >
+                      # of Contracts:
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      fontWeight=""
+                      sx={{ color: colors.greenAccent[500], ml: "auto" }}
+                    >
+                      {value}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+            </Box>
+            <IconButton display="flex" onClick={handleClick}>
+              <Typography
+                variant="h1"
+                fontWeight=""
+                sx={{ color: colors.greenAccent[400], marginRight: "5px" }}
+              >
+                Start Trading
+              </Typography>
+              <PlayCircleFilledWhiteRoundedIcon
+                sx={{ color: colors.greenAccent[400], fontSize: "60px" }}
+              />
+            </IconButton>
           </Box>
-          <IconButton display="flex" onClick={handleClick}>
-            <Typography
-              variant="h1"
-              fontWeight="bold"
-              sx={{ color: colors.greenAccent[400], marginRight: "5px" }}
-            >
-              Start Trading
-            </Typography>
-            <PlayCircleFilledWhiteRoundedIcon
-              sx={{ color: colors.greenAccent[400], fontSize: "60px" }}
-            />
-          </IconButton>
-        </Box>
-      )}
+        )}
+      </Box>
     </Box>
   );
 };

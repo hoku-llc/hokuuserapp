@@ -101,7 +101,7 @@ const LiveTrader = ({ apiKey, chosenTicks }) => {
         >
           <Typography
             variant="h3"
-            fontWeight="bold"
+            fontWeight=""
             sx={{ color: colors.grey[100] }}
           >
             {"Tickers"}
@@ -113,7 +113,7 @@ const LiveTrader = ({ apiKey, chosenTicks }) => {
         >
           <Typography
             variant="h3"
-            fontWeight="bold"
+            fontWeight=""
             sx={{ color: colors.grey[100] }}
           >
             {"Most Recent Signal"}
@@ -132,11 +132,12 @@ const LiveTrader = ({ apiKey, chosenTicks }) => {
             <Box
               gridColumn="span 6"
               gridRow="span 1"
-              backgroundColor={colors.primary[400]}
+              backgroundColor={"#2a5873"}
               display="flex"
               alignItems="center"
               justifyContent="center"
               padding="20px"
+              sx={{ borderRadius: '10px' }}
             >
               <Recommender
                 ticker={ticker.title}
@@ -148,11 +149,12 @@ const LiveTrader = ({ apiKey, chosenTicks }) => {
             <Box
               gridColumn="span 6"
               gridRow="span 1"
-              backgroundColor={colors.primary[400]}
+              backgroundColor={"#2a5873"}
               display="flex"
               alignItems="center"
               justifyContent="center"
               padding="20px"
+              sx={{ borderRadius: '10px' }}
             >
               <PrevSignal recJson={jsonData[ticker.title] || {}} />
             </Box>
